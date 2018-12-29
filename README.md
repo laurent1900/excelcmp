@@ -3,7 +3,7 @@
 
 1、环境要求
 
-Python2\r\n
+Python2
 
 2、安装
 
