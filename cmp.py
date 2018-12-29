@@ -41,15 +41,11 @@ def main():
 		for i in t1:
 			worksheet.write(n,0, label = i)
 			n += 1
-			if n == len(t1):
-				break
 
 		n = 0
 		for i in t2:
 			worksheet.write(n,1, label = i)
 			n += 1
-			if n == len(t1):
-				break
 		workbook.save('change.xls')
 	except Exception,e:
 		print e
