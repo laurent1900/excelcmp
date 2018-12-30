@@ -30,3 +30,5 @@ pip install xlwt
 '-c','--column', help="Enter the column number that you want to compare")
 
 要进行比较的列数，0代表第一列，1代表第二列，一次类推
+
+粗鄙之语
