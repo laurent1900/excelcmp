@@ -2,21 +2,22 @@
 import xlrd
 import xlwt
 import sys
+import argparse
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-def main():
+def main(old,new,sheet,column):
 	try:
-		data_old = xlrd.open_workbook('company.xlsx')
-		table_old = data_old.sheets()[0]
+		data_old = xlrd.open_workbook(old)
+		table_old = data_old.sheets()[int(sheet)]
 		nrows_old = table_old.nrows
-		cn_old = table_old.col_values(0, start_rowx=1, end_rowx=int(nrows_old))
+		cn_old = table_old.col_values(int(column), start_rowx=1, end_rowx=int(nrows_old))
 		
-		data_new = xlrd.open_workbook('company2.xlsx')
-		table_new = data_new.sheets()[0]
+		data_new = xlrd.open_workbook(new)
+		table_new = data_new.sheets()[int(sheet)]
 		nrows_new = table_new.nrows
-		cn_new = table_new.col_values(0, start_rowx=1, end_rowx=int(nrows_new))
+		cn_new = table_new.col_values(int(column), start_rowx=1, end_rowx=int(nrows_new))
 
 		result1 = set(cn_old).difference(set(cn_new))
 		result2 = set(cn_new).difference(set(cn_old))
@@ -36,7 +37,7 @@ def main():
 			t2 = ['increase']
 
 		workbook = xlwt.Workbook(encoding = 'utf-8')
-		worksheet = workbook.add_sheet('sheet1')
+		worksheet = workbook.add_sheet('compare_result')
 		n = 0
 		for i in t1:
 			worksheet.write(n,0, label = i)
@@ -51,4 +52,16 @@ def main():
 		print e
 
 if __name__ == '__main__':
-	main()
+	parse = argparse.ArgumentParser()
+	parse.add_argument('-o','--old', help="Enter the filename1 that you want to compare")
+	parse.add_argument('-n','--new', help="Enter the filename2 that you want to compare")
+	parse.add_argument('-s','--sheet', help="Enter the sheet number that you want to compare. exp: sheet1 -s 0")
+	parse.add_argument('-c','--column', help="Enter the column number that you want to compare")
+	args = parse.parse_args()
+
+	old = args.old
+	new = args.new
+	sheet = args.sheet
+	column = args.column
+
+	main(old,new,sheet,column)
