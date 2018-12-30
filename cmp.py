@@ -3,6 +3,7 @@ import xlrd
 import xlwt
 import sys
 import argparse
+import os
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -57,11 +58,22 @@ if __name__ == '__main__':
 	parse.add_argument('-n','--new', help="Enter the filename2 that you want to compare")
 	parse.add_argument('-s','--sheet', help="Enter the sheet number that you want to compare. exp: sheet1 -s 0")
 	parse.add_argument('-c','--column', help="Enter the column number that you want to compare")
+	
 	args = parse.parse_args()
-
-	old = args.old
-	new = args.new
-	sheet = args.sheet
-	column = args.column
-
-	main(old,new,sheet,column)
+	if len(sys.argv) == 1:
+		print 'usage: cmp.py [-h] [-o OLD] [-n NEW] [-s SHEET] [-c COLUMN]'
+		print 'optional arguments:'
+		print '-h, --help            show this help message and exit'
+		print '-o OLD, --old OLD     Enter the filename1 that you want to compare'
+		print '-n NEW, --new NEW     Enter the filename2 that you want to compare'
+		print '-s SHEET, --sheet SHEET'
+		print '                      Enter the sheet number that you want to compare.'
+		print '                      exp:sheet1 -s 0'
+		print '-c COLUMN, --column COLUMN'
+		print '                      Enter the column number that you want to compare'
+	else:
+		old = args.old
+		new = args.new
+		sheet = args.sheet
+		column = args.column
+		main(old,new,sheet,column)
