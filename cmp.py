@@ -31,11 +31,11 @@ def main(old,new,sheet,column):
 			t1 = ['delete:']
 
 		if result2:
-			t2 = ['increase']
+			t2 = ['add']
 			for i in result2:
 				t2.append(i.strip())
 		else:
-			t2 = ['increase']
+			t2 = ['add']
 
 		workbook = xlwt.Workbook(encoding = 'utf-8')
 		worksheet = workbook.add_sheet('compare_result')
